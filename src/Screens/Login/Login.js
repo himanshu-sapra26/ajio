@@ -23,7 +23,7 @@ class Login extends Component{
 <View> 
       
 <TextInput style={styles.input}
-      placeholder="username"
+      placeholder="Username"
       returnKeyType="next"
       onSubmitEditing={()=>this.passwordInput.focus()}
       keyboardType="email-address"
@@ -32,7 +32,7 @@ class Login extends Component{
       >
 </TextInput>
 <TextInput style={styles.input1}
-      placeholder="password"
+      placeholder="Password"
       returnKeyType="go"
       secureTextEntry 
       ref={(input)=>this.passwordInput=input}
@@ -152,11 +152,11 @@ const styles = StyleSheet.create({
   },
   fb:{
     height:50,
-    width:300,
+    width:319,
   },
   gmail:{
     height:50,
-    width:300,
+    width:319,
     marginTop:10,
   }
   

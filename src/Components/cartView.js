@@ -10,22 +10,59 @@ import {
   Alert,
   ScrollView,
 } from "react-native";
-import Pictures from "../../Pictures";
 
 
-export default function cartView(props) {
-  const { data, Test, item, _onNextScreen, _onClickCart } = props;
+
+export default function CartView(props) {
+const { data } = props;
+ 
+ 
+ 
+ 
   return (
-    <View style={{ justifyContent: "space-between", margin: 10 }}>
-      <Image style={styles.card} source={data.image} />
+    <View>
+      
+      <View style={{ justifyContent: "space-between", flexDirection: "row",backgroundColor:'white', marginVertical:20 }}>
+      
+        <Image style={styles.card} source={{ uri: data.pic }} />
+        <Text style={{ marginRight: "auto", marginTop: 30,marginLeft:30 }}>{data.Name}</Text>
+      </View>
+      <View style={{ flexDirection: "column" }}>
+        <Text style={{ marginLeft: 130, marginTop: -120, color: "grey" }}>
+          {data.Description}
+        </Text>
+        </View>
+
+        <View style={{ flexDirection: "row" ,marginTop: -75}}>
+          <Text style={styles.Price}>{data.Price}</Text>
+
+          <Text style={styles.Price1}>${data.newPrice}</Text>
+          <Text style={styles.Price2}>{data.Off}</Text>
+        </View>
+        <View>
+        <Text style={{ color: "green", marginLeft: 130 }}>
+          You save:{data.save}
+        </Text>
+      
+
+
+
+
+        
+      
+      
+      </View>
      
+      
     </View>
+
   );
 }
 const styles = StyleSheet.create({
-   card: {
-    height: 300,
-    width: 160,
+  card: {
+    height: 130,
+    width: 100,
+    marginTop: 20,
     borderTopLeftRadius: 10,
     borderBottomLeftRadius: 10,
     borderTopRightRadius: 10,
@@ -40,5 +77,28 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginLeft: 40,
     marginTop: 10,
+  },
+
+  Price: {
+    fontSize: 10,
+    color: "grey",
+    marginTop: -15,
+    marginLeft: 130,
+    fontWeight: "bold",
+    textDecorationLine: "line-through",
+  },
+  Price1: {
+    fontSize: 10,
+    color: "grey",
+    marginTop: -15,
+    fontWeight: "bold",
+    marginLeft: 10,
+  },
+  Price2: {
+    fontSize: 10,
+    color: "green",
+    marginTop: -15,
+    fontWeight: "bold",
+    marginLeft: 10,
   },
 });

@@ -11,6 +11,7 @@ import {
   ScrollView,
   FlatList,
   Alert,
+  
 } from "react-native";
 import Pictures from "../../../Pictures";
 import navigationStrings from "../../Navigation/navigationStrings";
@@ -19,8 +20,6 @@ import Clothes from "../../Components/Clothes";
 import Cart from '../Cart/Cart';
 
 
-// import { Value } from "react-native-reanimated";
-
 class Homepage extends Component {
   constructor(props) {
     super(props);
@@ -28,6 +27,8 @@ class Homepage extends Component {
       increment: 1,
       counter: 0,
       blankCartArray:[],
+      
+      
       clothes: [
         {
           id: 1,
@@ -36,9 +37,11 @@ class Homepage extends Component {
           Name: "Tom_Hiddle",
           Description:"Round Neck T-shirt",
           Price: "$1200",
-          newPrice:"$850",
+          newPrice:850,
           Off:'30% off',
           Color:'Black',
+          save:"$350",
+          quantity:1,
         },
         {
           id: 2,
@@ -47,9 +50,11 @@ class Homepage extends Component {
           Name: "Nike",
           Description:"Crew Neck T-shirt",
           Price: "$1359",
-          newPrice:"$1000",
+          newPrice:1000,
           Off:'20% off',
           Color:'Yellow',
+          save:"$359",
+          quantity:1,
         },
         {
           id: 3,
@@ -58,9 +63,11 @@ class Homepage extends Component {
           Name: "Puma",
           Description:"Crew Neck T-shirt",
           Price: "$1000",
-          newPrice:'$700',
+          newPrice:700,
           Off:'30% off',
           Color:'Ausk_Blue',
+          save:'$300',
+          quantity:1,
         },
         {
           id: 4,
@@ -69,9 +76,11 @@ class Homepage extends Component {
           Name: "Floral Print Kurta",
           Description:"Sangakurti",
           Price: "$1300",
-          newPrice:"$1000",
+          newPrice:1000,
           Off:'30% off',
           Color:'Black',
+          save:'$300',
+          quantity:1,
         },
         {
           id: 5,
@@ -80,9 +89,11 @@ class Homepage extends Component {
           Name: "Trends_tower",
           Description:"Pack of 2 T-Shirt",
           Price: "$900",
-          newPrice:"$500",
+          newPrice:500,
           Off:'35% off',
           Color:'Maroon and Green',
+          save:'$400',
+          quantity:1,
         },
         {
           id: 6,
@@ -92,9 +103,11 @@ class Homepage extends Component {
           
           Description:"Round Neck T-shirt",
           Price: "$900",
-          newPrice:"$550",
+          newPrice:550,
           Off:'30% off',
           Color:'Grey',
+          save:'$350',
+          quantity:1,
         },
         {
           id: 7,
@@ -103,9 +116,10 @@ class Homepage extends Component {
           Name: "Indo_era",
           Description:"Straight Kurta",
           Price: "$1200",
-          newPrice:'$900',
+          newPrice:900,
           Off:'35% off',
           Color:'Cream',
+          save:'$300',
         },
         {
           id: 8,
@@ -114,9 +128,11 @@ class Homepage extends Component {
           Name: "Indo_era",
           Description:"Geometric Print",
           Price: "$1900",
-          newPrice:'$1500',
+          newPrice:1500,
           Off:'45% off',
           Color:'Magenta',
+          save:'$400',
+          quantity:1,
 
         },
         {
@@ -126,9 +142,11 @@ class Homepage extends Component {
           Name: "Indo_era",
           Description:"Geometric Print",
           Price: "$1400",
-          newPrice:'$1200',
+          newPrice:1200,
           Off:'30% off',
           Color:'Beige',
+          save:'$200',
+          quantity:1,
 
         },
         {
@@ -138,50 +156,37 @@ class Homepage extends Component {
           Name: "Floral",
           Description:"Straight Kurta",
           Price: "$1800",
-          newPrice:"$1500",
+          newPrice:1500,
           Off:'35% off',
           Color:'Green',
+          save:'$300',
+          quantity:1,
 
         },
       ],
       selectedItem:'',
     };
   }
-  cart = () => {
-    let { increment, counter } = this.state;
-    this.setState({
-      counter: counter + increment,
-    });
-  };
+  
   _onClickCart = (id) => {
     console.log(id);
-
-     const { clothes, data, blankCartArray, count } = this.state;
-
-     let cartArray = [...clothes];
-     if (!blankCartArray.includes(cartArray[id])) {
-       let tempArray=[...blankCartArray,cartArray[id]]
-       this.setState({
-         count: count + 1,
-        blankCartArray:tempArray,
-       })
-     }
+     
+     const { clothes, blankCartArray, counter} = this.state;
+     blankCartArray.push(clothes[id-1])
+    this.setState({blankCartArray: blankCartArray, counter: counter+1})
 
 
 };
 checkCart=()=>{
-  const {emptyArray}=this.state;
-   this.props.navigation.navigate(navigationStrings.cartView,{data:emptyArray});
-
- 
-  
+  const {blankCartArray}=this.state;
+   this.props.navigation.navigate('cart',{data:blankCartArray});
  
 }
   componentDidMount(){
     this.focusListener = this.props.navigation.addListener('focus',()=>{
         if(this.props.route.params){
             let itemsadd=this.props.route.params.itemsinfo
-            this.cart(itemsadd)
+            this._onClickCart(itemsadd)
             this.props.route.params=null
         }
     })
@@ -193,8 +198,9 @@ checkCart=()=>{
   }
   render() {
     const { navigation, counter, clothes } = this.state;
+    
     return (
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1 , backgroundColor:'#f0f5f9'}}>
         <ScrollView>
           <View>
             <View style={styles.container}>
@@ -207,25 +213,26 @@ checkCart=()=>{
                 source={Pictures.ajio2}
               />
               <Image
-                style={{ height: 30, width: 30, marginLeft: "auto" }}
-                source={Pictures.bell}
+                style={{ height: 50, width: 50, marginLeft: "auto",marginTop:-10 }}
+                source={Pictures.bell2}
               />
             </View>
             <View style={styles.input}>
               <Image
-                style={{ height: 28, width: 28, marginLeft: 5, marginTop: -1 }}
+                style={{ height: 30, width: 28, marginLeft: 5, marginTop: -1 }}
                 source={Pictures.search}
               />
 
               <TextInput
-                style={{ marginTop: -30, marginLeft: 36 }}
+                style={{marginTop: -30, marginLeft: 36 }}
                 placeholder="Search by Product,Brand & more"
               />
             </View>
             <ScrollView
               horizontal={true}
               showsHorizontalScrollIndicator={false}
-              style={{ flexDirection: "row", marginTop: 10 }}
+              style={{ flexDirection: "row", marginTop: 10, backgroundColor:'#f0f5f9' }}
+              
             >
               <View
                 style={{
@@ -402,19 +409,11 @@ checkCart=()=>{
               )}
               renderItem={({ item }) => (
                 <Clothes data={item} 
-                onCart={this.cart} 
                 _onClickCart={this._onClickCart}/>
               )}
             />
 
-            {/* {clothes.map((value,index)=>{
-          return(
-              <Clothes key={String(index)}
-              data={value}
-              onCart={this.cart}/>
-          )
-      })} */}
-
+          
             <Image
               source={{
                 uri:
@@ -423,25 +422,25 @@ checkCart=()=>{
               style={{ height: 80, width: 370, marginTop: 5 }}
             />
 
-            {/* <Image source={Pictures.footer} style={{height:100,width:100}}/> */}
+           
           </View>
         </ScrollView>
         <View style={{ alignItems: "center", flexDirection: "row" }}>
           <TouchableOpacity>
             <Image
-              style={{ width: 40, height: 40, marginRight: 10 }}
+              style={{ width: 30, height: 30, marginRight: 10 }}
               source={Pictures.home}
               resizeMode="cover"
             />
           </TouchableOpacity>
           <TouchableOpacity>
             <Image
-              style={{ width: 40, height: 40, marginLeft: 20 }}
+              style={{ width: 30, height: 30, marginLeft: 20 }}
               source={Pictures.stores}
               resizeMode="cover"
             />
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={()=>this.props.navigation.navigate(navigationStrings.ACCOUNT)}>
             <Image
               style={{ width: 30, height: 30, marginLeft: 40 }}
               source={Pictures.account}
@@ -455,14 +454,14 @@ checkCart=()=>{
               resizeMode="cover"
             />
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={this.checkCart}>
             <Image
               style={{ width: 30, height: 30, marginLeft: 50 }}
               source={Pictures.logo}
               resizeMode="cover"
             />
           </TouchableOpacity>
-          <Text>{counter}</Text>
+          <Text style={{marginBottom:14,marginLeft:-5,color:'black'}}>{counter}</Text>
         </View>
       </View>
     );
@@ -478,14 +477,17 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "stretch",
     marginTop: 20,
+    backgroundColor:'#f0f5f9'
   },
   input: {
     borderWidth: 2,
     marginTop: 18,
-    borderRadius: 20,
-    height: 30,
+    borderRadius: 60,
+    height: 35,
     width: 350,
     marginLeft: 5,
+    borderColor:'grey',
+    backgroundColor:'#f0f5f9'
   },
   button: {
     backgroundColor: "#008cff",

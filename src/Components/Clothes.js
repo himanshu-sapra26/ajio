@@ -12,19 +12,20 @@ export default function Clothes(props){
         
         <>
         <View style={{marginLeft:30}}>
-            <TouchableOpacity onPress={()=>navigation.navigate(navigationStrings.DETAILPAGE,{item:data})}>
+             <TouchableOpacity onPress={()=>navigation.navigate(navigationStrings.DETAILPAGE,{item:data})}>
             <Image source={{uri:data.pic}}  style={{height:200,width:130,marginTop:20}}/></TouchableOpacity>
-           
+            
             <Text>{data.Name}</Text>
             <View  style={{flexDirection:'row'}}>
             <Text style={styles.Price}>{data.Price}</Text>
             
-            <Text style={styles.Price1}>{data.newPrice}</Text>
+            <Text style={styles.Price1}>${data.newPrice}</Text>
             <Text style={styles.Price2}>{data.Off}</Text>
             </View>
-            <TouchableOpacity style={{backgroundColor: "#008cff",
+            <TouchableOpacity style={{backgroundColor: "grey",
             padding: 10,
             width:130,
+            borderRadius:65,
             textAlign:'center',
             }}>
             <Text onPress={()=>{_onClickCart(data.id)}}>Add to Cart</Text></TouchableOpacity>

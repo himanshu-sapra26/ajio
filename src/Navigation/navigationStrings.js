@@ -5,4 +5,6 @@ export default {
     DETAILPAGE:'detailpage',
     CART:'cart',
     CARTVIEW:'cartView',
+    ACCOUNT:'account',
+    CONFIRM:'confirm',
 }
